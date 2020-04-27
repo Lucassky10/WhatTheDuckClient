@@ -3,7 +3,10 @@
 
 // Définition de la classe Client
 
+#include <iostream>
+#include <fstream>
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
@@ -12,6 +15,7 @@
 #define PORT 8888
 #define TRUE 1
 #define HELLO_MESSAGE "Hello from client"
+#define CONFIG_FILENAME ".config.json"
 
 class Client
 {
@@ -30,6 +34,7 @@ private:
 
 public:
     int connection();
+    void writeConfigFile(char*);
 };
 
 #endif

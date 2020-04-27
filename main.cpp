@@ -12,6 +12,8 @@
 #include <utils.h>
 #include "Scene.h"
 
+#include "Client.h"
+
 
 /**
  * Scène à dessiner
@@ -105,6 +107,10 @@ void error_callback(int error, const char* description)
 /** point d'entrée du programme **/
 int main(int argc,char **argv)
 {
+    // Create client and launch connection to server
+    Client *client = new Client();
+    client->connection();
+
     // initialisation de GLFW
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW" << std::endl;

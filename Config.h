@@ -12,6 +12,8 @@
 
 #include "Duck.h"
 
+#define CONFIG_FILENAME ".config.json"
+
 class Config
 {
 public:
