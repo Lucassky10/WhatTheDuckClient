@@ -1,4 +1,4 @@
-# What the duck!
+# What The Duck **Client version**
 
 ## Installation
 
