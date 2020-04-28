@@ -1,4 +1,5 @@
 #include "Client.h"
+#include "Message.h"
 
 using namespace std;
 
@@ -26,7 +27,12 @@ int Client::connection()
         exit(EXIT_FAILURE);
     }
 
-    //send(sock, HELLO_MESSAGE, strlen(HELLO_MESSAGE), 0);
+    // Send connection message
+    AskingConfigurationMessage *askingConfigurationMessage = new AskingConfigurationMessage(); 
+    string message = askingConfigurationMessage->constructMessage();
+    printf("TEST: Message de connexion -> %s\n", message);
+    send(sock, message.c_str(), strlen(message.c_str()), 0);
+    
     //printf("Hello message sent\n");
     //valread = read(sock, buffer, 1024);
     //printf("%s\n", buffer);

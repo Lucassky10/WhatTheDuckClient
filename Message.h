@@ -1,35 +1,40 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
+#include <string>
+
 // Définition de la classe Message
 
-enum typeMessage { CONNECTION, CONFIG, DUCK_FOUND, DUCK_FOUND_CLIENT, ALL_DUCKS_FOUND, COORDINATES };
+using namespace std;
+
+/* Enum: Message type */
+enum messageType { ASKING_CONFIGURATION, CONFIG, DUCK_FOUND, DUCK_FOUND_CLIENT, ALL_DUCKS_FOUND, COORDINATES };
+
+/* Enum strings */
+static const string EnumMessageTypes[] = { "Demande de la configuration", "Configuration", "Canard trouvé", "Le client %s a trouvé %i canard(s)", "x: %i, y: %i, z: %i" };
 
 class Message
 {
-private:
-    // Type
-    char* type;
-    char* message;
-
 public:
+    // Type
+    messageType type;
+    string message;
 
     virtual ~Message() {}
-    virtual char* constructMessage() = 0;
-    virtual char* getMessage() = 0;
-    char* getType();
+    virtual string constructMessage() = 0;
+    //virtual string getMessage() = 0;
+    messageType getType();
+    string getTextForEnum(int);
 };
 
-// 1. Message sent by client
-class ConnectionMessage : public Message
+// 1. Asking configuration message sent by client
+class AskingConfigurationMessage : public Message
 {
 private:
-    // Connection type
-    typeMessage type = CONNECTION;
 
 public:
-
-    
+    AskingConfigurationMessage();
+    string constructMessage();
 };
 
 // 2. Config initialisation
@@ -37,7 +42,7 @@ class ConfigMessage : public Message
 {
 private:
     // Config type
-    typeMessage type = CONFIG;
+    messageType type = CONFIG;
 
     // Config (ducks)
     char* data;
@@ -52,7 +57,7 @@ class DuckFoundMessage : public Message
 {
 private:
     // Duck found type
-    typeMessage type = DUCK_FOUND;
+    messageType type = DUCK_FOUND;
 
     // Duck id
     int duckId;
@@ -67,7 +72,7 @@ class DuckFoundClientMessage : public Message
 {
 private:
     // Duck found by a client type
-    typeMessage type = DUCK_FOUND_CLIENT;
+    messageType type = DUCK_FOUND_CLIENT;
 
 public:
     
@@ -78,7 +83,7 @@ class AllDucksFoundMessage : public Message
 {
 private:
     // All ducks found
-    typeMessage type = ALL_DUCKS_FOUND;
+    messageType type = ALL_DUCKS_FOUND;
 
 public:
     
@@ -89,7 +94,7 @@ class CoordinatesMessage : public Message
 {
 private:
     // Coordinates
-    typeMessage type = COORDINATES;
+    messageType type = COORDINATES;
 
     // Position (x, y, z)
     int position[];
