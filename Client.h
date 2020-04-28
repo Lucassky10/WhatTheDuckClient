@@ -1,6 +1,8 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
+#include <vector>
+
 // Définition de la classe Client
 
 #include <iostream>
@@ -16,6 +18,8 @@
 #define TRUE 1
 #define HELLO_MESSAGE "Hello from client"
 #define CONFIG_FILENAME ".config.json"
+
+using namespace std;
 
 class Client
 {
@@ -33,8 +37,9 @@ private:
     char buffer[1024] = {0};
 
 public:
-    int connection();
-    void writeConfigFile(char*);
+    void connection();
+    void listen();
+    void writeConfigFile(string);
 };
 
 #endif

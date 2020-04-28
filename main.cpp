@@ -111,73 +111,75 @@ int main(int argc,char **argv)
     Client *client = new Client();
     client->connection();
 
-    // initialisation de GLFW
-    if (!glfwInit()) {
-        std::cerr << "Failed to initialize GLFW" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    glfwSetErrorCallback(error_callback);
+    // // initialisation de GLFW
+    // if (!glfwInit()) {
+    //     std::cerr << "Failed to initialize GLFW" << std::endl;
+    //     exit(EXIT_FAILURE);
+    // }
+    // glfwSetErrorCallback(error_callback);
 
-    // caractéristiques de la fenêtre à ouvrir
-    //glfwWindowHint(GLFW_STENCIL_BITS, 8);
-    glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
+    // // caractéristiques de la fenêtre à ouvrir
+    // //glfwWindowHint(GLFW_STENCIL_BITS, 8);
+    // glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
 
-    // initialisation de la fenêtre
-    GLFWwindow* window = glfwCreateWindow(640,480, "Livre OpenGL", NULL, NULL);
-    if (window == nullptr) {
-        std::cerr << "Failed to create window" << std::endl;
-        glfwTerminate();
-        exit(EXIT_FAILURE);
-    }
-    glfwMakeContextCurrent(window);
-    glfwSetWindowPos(window, 200, 200);
-    glfwSetWindowTitle(window, "Cameras - TurnTable");
+    // // initialisation de la fenêtre
+    // GLFWwindow* window = glfwCreateWindow(640,480, "Livre OpenGL", NULL, NULL);
+    // if (window == nullptr) {
+    //     std::cerr << "Failed to create window" << std::endl;
+    //     glfwTerminate();
+    //     exit(EXIT_FAILURE);
+    // }
+    // glfwMakeContextCurrent(window);
+    // glfwSetWindowPos(window, 200, 200);
+    // glfwSetWindowTitle(window, "Cameras - TurnTable");
 
-    // initialisation de glew
-    GLenum err = glewInit();
-    if (err != GLEW_OK) {
-        std::cerr << "Unable to initialize Glew : " << glewGetErrorString(err) << std::endl;
-        glfwTerminate();
-        exit(EXIT_FAILURE);
-    }
+    // // initialisation de glew
+    // GLenum err = glewInit();
+    // if (err != GLEW_OK) {
+    //     std::cerr << "Unable to initialize Glew : " << glewGetErrorString(err) << std::endl;
+    //     glfwTerminate();
+    //     exit(EXIT_FAILURE);
+    // }
 
-    // pour spécifier ce qu'il faut impérativement faire à la sortie
-    atexit(onExit);
+    // // pour spécifier ce qu'il faut impérativement faire à la sortie
+    // atexit(onExit);
 
-    // initialisation de la bibliothèque de gestion du son
-    alutInit(0, NULL);
-    alGetError();
+    // // initialisation de la bibliothèque de gestion du son
+    // alutInit(0, NULL);
+    // alGetError();
 
-    // position de la caméra qui écoute
-    alListener3f(AL_POSITION, 0, 0, 0);
-    alListener3f(AL_VELOCITY, 0, 0, 0);
+    // // position de la caméra qui écoute
+    // alListener3f(AL_POSITION, 0, 0, 0);
+    // alListener3f(AL_VELOCITY, 0, 0, 0);
 
-    // création de la scène => création des objets...
-    scene = new Scene();
-    //debugGLFatal("new Scene()");
+    // // création de la scène => création des objets...
+    // scene = new Scene();
+    // //debugGLFatal("new Scene()");
 
-    // enregistrement des fonctions callbacks
-    glfwSetFramebufferSizeCallback(window, onSurfaceChanged);
-    glfwSetCursorPosCallback(window, onMouseMove);
-    glfwSetMouseButtonCallback(window, onMouseButton);
-    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-    glfwSetKeyCallback(window, onKeyboard);
+    // // enregistrement des fonctions callbacks
+    // glfwSetFramebufferSizeCallback(window, onSurfaceChanged);
+    // glfwSetCursorPosCallback(window, onMouseMove);
+    // glfwSetMouseButtonCallback(window, onMouseButton);
+    // glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+    // glfwSetKeyCallback(window, onKeyboard);
 
-    // affichage du mode d'emploi
-    // cout : affichage à l'écran
-    // endl : end of line, à la ligne
-    std::cout << "Usage:" << std::endl;
-    std::cout << "Left button to rotate object" << std::endl;
-    std::cout << "Q,D (axis x) A,W (axis y) Z,S (axis z) keys to move" << std::endl;
+    // // affichage du mode d'emploi
+    // // cout : affichage à l'écran
+    // // endl : end of line, à la ligne
+    // std::cout << "Usage:" << std::endl;
+    // std::cout << "Left button to rotate object" << std::endl;
+    // std::cout << "Q,D (axis x) A,W (axis y) Z,S (axis z) keys to move" << std::endl;
 
-    // boucle principale
-    onSurfaceChanged(window, 640,480);
-    do {
-        // dessiner
-        onDrawRequest(window);
-        // attendre les événements
-        glfwPollEvents();
-    } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && !glfwWindowShouldClose(window));
+    // // boucle principale
+    // onSurfaceChanged(window, 640,480);
+    // do {
+    //     // dessiner
+    //     onDrawRequest(window);
+    //     // attendre les événements
+    //     glfwPollEvents();
+    // } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && !glfwWindowShouldClose(window));
+
+    client->listen();
 
     return EXIT_SUCCESS;
 }
