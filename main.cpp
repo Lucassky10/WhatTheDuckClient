@@ -107,7 +107,7 @@ void error_callback(int error, const char* description)
 /** point d'entrée du programme **/
 int main(int argc,char **argv)
 {
-    // Create client and launch connection to server
+    // Launch connection to server
     Client *client = new Client();
     client->connection();
 

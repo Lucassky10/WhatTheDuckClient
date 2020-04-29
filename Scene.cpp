@@ -11,6 +11,7 @@
 #include <utils.h>
 
 #include "Scene.h"
+#include "Client.h"
 
 /** constructeur */
 Scene::Scene()
@@ -211,6 +212,8 @@ void Scene::onDrawFrame()
     for(Duck *duck : ducks) {
         duck->onRender(m_MatP, m_MatV);
     }
+
+    // TODO: Call send method from Socket to sending coordinates
 }
 
 

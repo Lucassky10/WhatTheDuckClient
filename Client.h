@@ -14,10 +14,12 @@
 #include <unistd.h>
 #include <string.h>
 
+#include "Message.h"
+#include "Socket.h"
+
 #define PORT 8888
 #define TRUE 1
 #define HELLO_MESSAGE "Hello from client"
-#define CONFIG_FILENAME ".config.json"
 
 using namespace std;
 
@@ -34,7 +36,7 @@ private:
     // Structure describing an Internet socket address
     struct sockaddr_in serv_addr;
 
-    char buffer[1024] = {0};
+    char buffer[BUFFER_SIZE] = {0};
 
 public:
     void connection();
