@@ -2,9 +2,9 @@
 
 using namespace std;
 
-Client* Client::instance = 0;
+Client *Client::instance = 0;
 
-Client* Client::getInstance()
+Client *Client::getInstance()
 {
     if (instance == 0)
     {
@@ -15,13 +15,15 @@ Client* Client::getInstance()
 }
 
 Client::Client()
-{}
+{
+}
 
 void Client::connection()
 {
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
-        cout << endl << "Socket creation error" << endl;
+        cout << endl
+             << "Socket creation error" << endl;
         exit(EXIT_FAILURE);
     }
 
@@ -31,18 +33,20 @@ void Client::connection()
     // Convert IPv4 and IPv6 addresses from text to binary form
     if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0)
     {
-        cout << endl << "Invalid address/ Address not supported" << endl;
+        cout << endl
+             << "Invalid address/ Address not supported" << endl;
         exit(EXIT_FAILURE);
     }
 
     if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
     {
-        cout << endl <<  "Connection Failed" << endl;
+        cout << endl
+             << "Connection Failed" << endl;
         exit(EXIT_FAILURE);
     }
 
     // Send asking configuration message
-    AskingConfigurationMessage *askingConfigurationMessage = new AskingConfigurationMessage(); 
+    AskingConfigurationMessage *askingConfigurationMessage = new AskingConfigurationMessage();
     string acMessage = askingConfigurationMessage->constructMessage();
     Socket::sendMessage(sock, acMessage);
 
@@ -51,11 +55,25 @@ void Client::connection()
     Socket::action(message);
 }
 
-void Client::listen() {
-    while(TRUE);
+void Client::listen(int sock)
+{
+    cout << "Listening server messages" << endl;
+    int valread;
+    char buffer[BUFFER_SIZE] = {0};
 
+    while (TRUE)
+    {
+        string message = Socket::receiveMessage(sock, buffer);
+        Socket::action(message);
+    }
 }
 
-int Client::getSock() {
+int Client::getSock()
+{
     return sock;
+}
+
+char *Client::getBuffer()
+{
+    return buffer;
 }

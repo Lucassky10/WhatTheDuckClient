@@ -47,8 +47,9 @@ private:
 
 public:
     void connection();
-    void listen();
+    static void listen(int);
     int getSock();
+    char* getBuffer();
     static Client* getInstance();
 };
 

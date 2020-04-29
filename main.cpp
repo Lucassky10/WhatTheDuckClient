@@ -10,36 +10,40 @@
 #include <stdlib.h>
 
 #include <utils.h>
+
+#include <thread>
+
 #include "Scene.h"
-
 #include "Client.h"
-
 
 /**
  * Scène à dessiner
  * NB: son constructeur doit être appelé après avoir initialisé OpenGL
  **/
-Scene* scene = nullptr;
+Scene *scene = nullptr;
 
 /**
  * Callback pour GLFW : prendre en compte la taille de la vue OpenGL
  **/
-static void onSurfaceChanged(GLFWwindow* window, int width, int height)
+static void onSurfaceChanged(GLFWwindow *window, int width, int height)
 {
-    if (scene == nullptr) return;
+    if (scene == nullptr)
+        return;
     scene->onSurfaceChanged(width, height);
 }
 
 /**
  * Callback pour GLFW : redessiner la vue OpenGL
  **/
-static void onDrawRequest(GLFWwindow* window)
+static void onDrawRequest(GLFWwindow *window)
 {
-    if (scene == nullptr) return;
+    if (scene == nullptr)
+        return;
     Utils::UpdateTime();
     scene->onDrawFrame();
     static bool premiere = true;
-    if (premiere) {
+    if (premiere)
+    {
         // copie écran automatique
         int width, height;
         glfwGetWindowSize(window, &width, &height);
@@ -51,39 +55,43 @@ static void onDrawRequest(GLFWwindow* window)
     glfwSwapBuffers(window);
 }
 
-
-static void onMouseButton(GLFWwindow* window, int button, int action, int mods)
+static void onMouseButton(GLFWwindow *window, int button, int action, int mods)
 {
-    if (scene == nullptr) return;
+    if (scene == nullptr)
+        return;
     double x, y;
     glfwGetCursorPos(window, &x, &y);
-    if (action == GLFW_PRESS) {
-        scene->onMouseDown(button, x,y);
-    } else {
-        scene->onMouseUp(button, x,y);
+    if (action == GLFW_PRESS)
+    {
+        scene->onMouseDown(button, x, y);
+    }
+    else
+    {
+        scene->onMouseUp(button, x, y);
     }
 }
 
-
-static void onMouseMove(GLFWwindow* window, double x, double y)
+static void onMouseMove(GLFWwindow *window, double x, double y)
 {
-    if (scene == nullptr) return;
-    scene->onMouseMove(x,y);
+    if (scene == nullptr)
+        return;
+    scene->onMouseMove(x, y);
 }
 
-
-static void onKeyboard(GLFWwindow* window, int key, int scancode, int action, int mods)
+static void onKeyboard(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
-    if (action == GLFW_RELEASE) return;
-    if (scene == nullptr) return;
-        scene->onKeyDown(key);
+    if (action == GLFW_RELEASE)
+        return;
+    if (scene == nullptr)
+        return;
+    scene->onKeyDown(key);
 }
-
 
 void onExit()
 {
     // libération des ressources demandées par la scène
-    if (scene != nullptr) delete scene;
+    if (scene != nullptr)
+        delete scene;
     scene = nullptr;
 
     // terminaison de GLFW
@@ -96,24 +104,23 @@ void onExit()
     std::cout << std::endl;
 }
 
-
 /** appelée en cas d'erreur */
-void error_callback(int error, const char* description)
+void error_callback(int error, const char *description)
 {
     std::cerr << "GLFW error : " << description << std::endl;
 }
 
-
 /** point d'entrée du programme **/
-int main(int argc,char **argv)
+int main(int argc, char **argv)
 {
     // Create client and launch connection to server
-    Client* client = Client::getInstance();
-    
+    Client *client = Client::getInstance();
+
     client->connection();
 
     // initialisation de GLFW
-    if (!glfwInit()) {
+    if (!glfwInit())
+    {
         std::cerr << "Failed to initialize GLFW" << std::endl;
         exit(EXIT_FAILURE);
     }
@@ -124,8 +131,9 @@ int main(int argc,char **argv)
     glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
 
     // initialisation de la fenêtre
-    GLFWwindow* window = glfwCreateWindow(640,480, "Livre OpenGL", NULL, NULL);
-    if (window == nullptr) {
+    GLFWwindow *window = glfwCreateWindow(640, 480, "Livre OpenGL", NULL, NULL);
+    if (window == nullptr)
+    {
         std::cerr << "Failed to create window" << std::endl;
         glfwTerminate();
         exit(EXIT_FAILURE);
@@ -136,7 +144,8 @@ int main(int argc,char **argv)
 
     // initialisation de glew
     GLenum err = glewInit();
-    if (err != GLEW_OK) {
+    if (err != GLEW_OK)
+    {
         std::cerr << "Unable to initialize Glew : " << glewGetErrorString(err) << std::endl;
         glfwTerminate();
         exit(EXIT_FAILURE);
@@ -171,16 +180,18 @@ int main(int argc,char **argv)
     std::cout << "Left button to rotate object" << std::endl;
     std::cout << "Q,D (axis x) A,W (axis y) Z,S (axis z) keys to move" << std::endl;
 
+    // Create thread for client listener
+    std::thread t1(Client::listen, client->getSock());
+
     // boucle principale
-    onSurfaceChanged(window, 640,480);
-    do {
+    onSurfaceChanged(window, 640, 480);
+    do
+    {
         // dessiner
         onDrawRequest(window);
         // attendre les événements
         glfwPollEvents();
     } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && !glfwWindowShouldClose(window));
-
-    client->listen();
 
     return EXIT_SUCCESS;
 }
