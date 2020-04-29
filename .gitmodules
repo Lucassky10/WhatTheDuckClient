@@ -1,0 +1,3 @@
+[submodule "WhatTheDuckServer"]
+	path = WhatTheDuckServer
+	url = https://github.com/Lucassky10/WhatTheDuckServer/
