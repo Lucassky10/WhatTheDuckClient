@@ -193,5 +193,8 @@ int main(int argc, char **argv)
         glfwPollEvents();
     } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && !glfwWindowShouldClose(window));
 
+    // Detach thread
+    t1.detach();
+
     return EXIT_SUCCESS;
 }
