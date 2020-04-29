@@ -8,7 +8,7 @@ Cloner le projet **récursivement** *(pour récupérer la version cliente et ser
 
 ## Prérequis
 
-[Debian] Bibliothèque requises
+[Debian] Bibliothèques requises
 
 `g++ mesa-utils libglew-dev libglfw3-dev libsdl2-dev libsdl2-image-dev libopenal-dev libalut-dev freeglut3-dev libjsoncpp-dev`
 
