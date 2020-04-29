@@ -4,7 +4,7 @@ using namespace std;
 
 // Send socket message
 void Socket::sendMessage(int socket, string message) {
-    cout << "Sending message: " << enumMessageTypes[ASKING_CONFIGURATION] << endl;
+    cout << message << endl;
     send(socket, message.c_str(), strlen(message.c_str()), FLAG_0);
 }
 
@@ -61,8 +61,7 @@ void Socket::action(string message) {
             Socket::configuration(elts);
             break;
         case COORDINATES:
-            //TODO: replace {} by x, y, z
-            cout << "Action: " << enumMessageTypes[COORDINATES] << endl;
+            cout << "Action: Coordonnées x: " << elts[1] << ", y: " << elts[2] << ", : " << elts[3] << endl;
             break;
         default:
             cout << "Message type unknown!" << endl;

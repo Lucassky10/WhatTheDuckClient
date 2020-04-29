@@ -155,7 +155,12 @@ void Scene::onKeyDown(unsigned char code)
     // appliquer le décalage au centre de la rotation
     vec3::add(m_Center, m_Center, offset);
 
-    Scene::coordinatesChanged();
+    // Send coordinates message
+    CoordinatesMessage *coordinatesMessage = new CoordinatesMessage();
+    // Set client position to message
+    coordinatesMessage->setPosition(m_Center[0], m_Center[1], m_Center[2]);
+    string cMessage = coordinatesMessage->constructMessage();
+    Socket::sendMessage(client->getSock(), cMessage);
 }
 
 
@@ -224,17 +229,6 @@ void Scene::onDrawFrame()
         duck->onRender(m_MatP, m_MatV);
     }
 }
-
-void Scene::coordinatesChanged() {
-
-    // Send coordinates message
-    CoordinatesMessage *coordinatesMessage = new CoordinatesMessage();
-    //TODO: get client position and set position to message
-    //coordinatesMessage->setPosition();
-    string cMessage = coordinatesMessage->constructMessage();
-    Socket::sendMessage(client->getSock(), cMessage);
-}
-
 
 /** supprime tous les objets de cette scène */
 Scene::~Scene()
