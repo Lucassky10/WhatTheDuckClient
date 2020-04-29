@@ -65,3 +65,20 @@ void ConfigurationMessage::setData(string configData) {
 string ConfigurationMessage::getData() {
     return data;
 }
+
+/**
+ * Duck Found Message
+ */
+DuckFoundMessage::DuckFoundMessage() {
+    type = DUCK_FOUND;
+}
+
+// Construct configuration message
+string DuckFoundMessage::constructMessage() {
+    message = to_string(type) + DELIMITER + to_string(duckId);
+    return message;
+}
+
+void DuckFoundMessage::setDuckId(int id) {
+    duckId = id;
+}

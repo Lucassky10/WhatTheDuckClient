@@ -14,6 +14,9 @@
 #include <unistd.h>
 #include <string.h>
 
+#include "Client.h"
+
+
 #define PORT 8888
 #define TRUE 1
 #define HELLO_MESSAGE "Hello from client"
@@ -21,11 +24,16 @@
 
 using namespace std;
 
+
 class Client
 {
 private:
 
-    // File descriptor for the socket
+    static Client* instance;
+
+    Client();
+
+    // socket file descriptor
     int sock = 0;
 
     // read return
@@ -40,6 +48,8 @@ public:
     void connection();
     void listen();
     void writeConfigFile(string);
+    int getSock();
+    static Client* getInstance();
 };
 
 #endif

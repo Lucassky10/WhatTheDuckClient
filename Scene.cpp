@@ -11,6 +11,8 @@
 #include <utils.h>
 
 #include "Scene.h"
+#include "Message.h"
+#include "Client.h"
 
 /** constructeur */
 Scene::Scene()
@@ -185,6 +187,13 @@ void Scene::onDrawFrame()
             duck->setDraw(true);
             duck->setSound(false);
             duck->setIsDiscovered(true);
+
+            Client* client = Client::getInstance();
+
+            DuckFoundMessage *duckFoundMessage = new DuckFoundMessage();
+            duckFoundMessage->setDuckId(duck->getId());
+            string message = duckFoundMessage->constructMessage();
+            send(client->getSock(), message.c_str(), strlen(message.c_str()), 0);
         }        
     }
 

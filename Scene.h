@@ -5,6 +5,8 @@
 
 #include <gl-matrix.h>
 
+#include <sys/socket.h>
+
 #include "Light.h"
 
 #include "Duck.h"

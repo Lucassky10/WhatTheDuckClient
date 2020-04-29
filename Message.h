@@ -58,14 +58,17 @@ class DuckFoundMessage : public Message
 {
 private:
     // Duck found type
-    messageType type = DUCK_FOUND;
+    messageType type;
+    string data;
 
     // Duck id
     int duckId;
 
 public:
     // Get duck id
-    int getDuckId();
+    DuckFoundMessage();
+    string constructMessage();
+    void setDuckId(int id);
 };
 
 // 4. Duck found by a client

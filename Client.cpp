@@ -3,6 +3,21 @@
 
 using namespace std;
 
+Client* Client::instance = 0;
+
+Client* Client::getInstance()
+{
+    if (instance == 0)
+    {
+        instance = new Client();
+    }
+
+    return instance;
+}
+
+Client::Client()
+{}
+
 void Client::connection()
 {
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
@@ -80,4 +95,8 @@ void Client::writeConfigFile(string data)
     configFile.open(CONFIG_FILENAME);
     configFile << data << endl;
     cout << "Récupération du fichier de configuration OK" << endl;
+}
+
+int Client::getSock() {
+    return sock;
 }

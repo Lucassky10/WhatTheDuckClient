@@ -16,6 +16,10 @@ vector<Duck *> ConfigJSON::loadConfig()
 
     for (const auto &jsonDuck : config["ducks"])
     {
+
+        //Get duck id
+        int duckId = jsonDuck["_id"].asInt();
+
         // Get sound played
         string soundPointer = jsonDuck["sound"].asString();
         const char *sound = soundPointer.c_str();
@@ -33,10 +37,10 @@ vector<Duck *> ConfigJSON::loadConfig()
         vec3 orientation = vec3::fromValues(xOrientation, yOrientation, zOrientation);
 
         // Show duck
-        cout << duckNumber << " " << sound << " " << xPosition << " " << yPosition << " " << zPosition << " " << xOrientation << " " << yOrientation << " " << zOrientation << endl;
+        cout << duckId << " " << sound << " " << xPosition << " " << yPosition << " " << zPosition << " " << xOrientation << " " << yOrientation << " " << zOrientation << endl;
 
         // Create Duck
-        Duck *duck = new Duck(duckNumber, sound, position, orientation);
+        Duck *duck = new Duck(duckId, sound, position, orientation);
         // Add duck to array
         ducks.push_back(duck);
 
