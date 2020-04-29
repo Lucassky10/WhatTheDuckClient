@@ -4,7 +4,6 @@ using namespace std;
 
 // Send socket message
 void Socket::sendMessage(int socket, string message) {
-    cout << message << endl;
     send(socket, message.c_str(), strlen(message.c_str()), FLAG_0);
 }
 
@@ -72,7 +71,6 @@ void Socket::configuration(vector<string> elts) {
     configurationMessage->setMessage(elts[1]);
     
     // Write config file
-    cout << "Tentative de récupération du fichier de configuration" << endl;
     ofstream configFile;
     configFile.open(CLIENT_CONFIG_FILENAME);
     configFile << configurationMessage->getData() << endl;
