@@ -11,16 +11,14 @@ void Socket::sendMessage(int socket, string message) {
 // Receive socket message
 string Socket::receiveMessage(int socket, char buffer[BUFFER_SIZE]) {
     int valread;
-    while (1) {
-        if ((valread = read(socket, buffer, BUFFER_SIZE)) > 0) {
-            cout << "Receiving message, processing..." << endl;
-            // TEMP: car trop volumineux
-            //cout << "Receiving message: " << buffer << endl;
-        
-            string message(buffer);
-            return message;
-        }
+    string message;
+    if ((valread = read(socket, buffer, BUFFER_SIZE)) > 0) {
+        cout << "Receiving message, processing..." << endl;    
+        message = buffer;
+    } else {
+        message = "-1";
     }
+    return message;
 }
 
 // Parse socket message
