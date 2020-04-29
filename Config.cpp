@@ -6,7 +6,7 @@ using namespace std;
 
 vector<Duck *> ConfigJSON::loadConfig()
 {
-    ifstream ifs(CONFIG_FILENAME);
+    ifstream ifs(CLIENT_CONFIG_FILENAME);
     Json::Reader reader;
     Json::Value config;
     reader.parse(ifs, config);

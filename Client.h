@@ -48,7 +48,6 @@ private:
 public:
     void connection();
     void listen();
-    void writeConfigFile(string);
     int getSock();
     static Client* getInstance();
 };

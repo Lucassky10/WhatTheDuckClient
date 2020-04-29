@@ -15,6 +15,8 @@
 #include "Message.h"
 #include "Client.h"
 
+Client* client = Client::getInstance();
+
 /** constructeur */
 Scene::Scene()
 {
@@ -152,6 +154,8 @@ void Scene::onKeyDown(unsigned char code)
 
     // appliquer le décalage au centre de la rotation
     vec3::add(m_Center, m_Center, offset);
+
+    Scene::coordinatesChanged();
 }
 
 
@@ -179,7 +183,6 @@ void Scene::onDrawFrame()
     mat4 tmp_v;
     vec4 pos;
 
-    //TODO: what is for?
     for(Duck *duck : ducks) {
         mat4::translate(tmp_v, m_MatV, duck->getPosition());
         vec4::transformMat4(pos, vec4::fromValues(0,0,0,1), tmp_v);
@@ -189,8 +192,7 @@ void Scene::onDrawFrame()
             duck->setSound(false);
             duck->setIsDiscovered(true);
 
-            Client* client = Client::getInstance();
-
+            // Send duck found message
             DuckFoundMessage *duckFoundMessage = new DuckFoundMessage();
             duckFoundMessage->setDuckId(duck->getId());
             string message = duckFoundMessage->constructMessage();
@@ -221,8 +223,16 @@ void Scene::onDrawFrame()
     for(Duck *duck : ducks) {
         duck->onRender(m_MatP, m_MatV);
     }
+}
 
-    // TODO: Call send method from Socket to sending coordinates
+void Scene::coordinatesChanged() {
+
+    // Send coordinates message
+    CoordinatesMessage *coordinatesMessage = new CoordinatesMessage();
+    //TODO: get client position and set position to message
+    //coordinatesMessage->setPosition();
+    string cMessage = coordinatesMessage->constructMessage();
+    Socket::sendMessage(client->getSock(), cMessage);
 }
 
 

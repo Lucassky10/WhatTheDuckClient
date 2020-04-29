@@ -56,15 +56,6 @@ void Client::listen() {
 
 }
 
-void Client::writeConfigFile(string data)
-{
-    cout << "Tentative de récupération du fichier de configuration" << endl;
-    ofstream configFile;
-    configFile.open(CONFIG_FILENAME);
-    configFile << data << endl;
-    cout << "Récupération du fichier de configuration OK" << endl;
-}
-
 int Client::getSock() {
     return sock;
 }

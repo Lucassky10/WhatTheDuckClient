@@ -12,7 +12,7 @@
 
 #include "Duck.h"
 
-#define CONFIG_FILENAME ".config.json"
+#define CLIENT_CONFIG_FILENAME ".config.json"
 
 class Config
 {
