@@ -33,7 +33,6 @@ void Client::connection()
 
     // Receive message (configuration) and do action
     string message = Socket::receiveMessage(sock, buffer);
-    cout << "JUSTE APRES RECEIVE MESSAGE" << endl;
     Socket::action(message);
 }
 

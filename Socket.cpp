@@ -55,17 +55,17 @@ void Socket::action(string message) {
     switch(type) {
         case ASKING_CONFIGURATION:
             cout << "Action: " << enumMessageTypes[ASKING_CONFIGURATION] << endl;
-            Socket::askingConfiguration(elts);
             break;
         case CONFIGURATION:
             cout << "Action: " << enumMessageTypes[CONFIGURATION] << endl;
+            Socket::configuration(elts);
             break;
         default:
             cout << "Message type unknown!" << endl;
     }
 }
 
-void Socket::askingConfiguration(vector<string> elts) {
+void Socket::configuration(vector<string> elts) {
     // Construct configuration message
     ConfigurationMessage *configurationMessage = new ConfigurationMessage();
     configurationMessage->setMessage(elts[1]);

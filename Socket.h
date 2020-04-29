@@ -29,7 +29,7 @@ public:
     static vector<string> parseMessage(string);
     static enum messageType getMessageType(string);
     static void action(string message);
-    static void askingConfiguration(vector<string>);
+    static void configuration(vector<string>);
 };
 
 #endif
