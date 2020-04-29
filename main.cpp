@@ -109,6 +109,7 @@ int main(int argc,char **argv)
 {
     // Create client and launch connection to server
     Client* client = Client::getInstance();
+    
     client->connection();
 
     // initialisation de GLFW

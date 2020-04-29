@@ -2,12 +2,6 @@
 
 using namespace std;
 
-typedef struct
-{ 
-    char type;
-    int message;
-} Header;
-
 // Get type
 messageType Message::getType() {
     return type;
@@ -51,12 +45,12 @@ string ConfigurationMessage::constructMessage() {
     return message;
 }
 
-// Construct get message
+// Set message
 void ConfigurationMessage::setMessage(string data) {
     setData(data);
 }
 
-// Set Message
+// Set Data
 void ConfigurationMessage::setData(string configData) {
     data = configData;
 }
@@ -67,6 +61,7 @@ string ConfigurationMessage::getData() {
 }
 
 /**
+<<<<<<< HEAD
  * Duck Found Message
  */
 DuckFoundMessage::DuckFoundMessage() {
@@ -82,3 +77,44 @@ string DuckFoundMessage::constructMessage() {
 void DuckFoundMessage::setDuckId(int id) {
     duckId = id;
 }
+=======
+ * All Ducks Found Message
+ */
+
+AllDucksFoundMessage::AllDucksFoundMessage() {
+    // All ducks found type
+    type = ALL_DUCKS_FOUND;
+}
+
+// Construct all ducks found message
+string AllDucksFoundMessage::constructMessage() {
+    message = to_string(type);
+    return message;
+}
+
+/**
+ * Coordinates Message
+ */
+CoordinatesMessage::CoordinatesMessage() {
+    // Coordinates type
+    type = COORDINATES;
+}
+
+// Construct coordinates message
+string CoordinatesMessage::constructMessage() {
+    message = to_string(type);
+    return message;
+}
+
+// Set position
+void CoordinatesMessage::setPosition(int x, int y, int z) {
+    position[0] = x;
+    position[1] = y;
+    position[2] = z;
+}
+
+// Get position
+int* CoordinatesMessage::getPosition() {
+    return position;
+}
+>>>>>>> 0ebee56022809f679f5e75c1c975a8124bf9f713
