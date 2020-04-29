@@ -14,13 +14,10 @@
 #include <unistd.h>
 #include <string.h>
 
-<<<<<<< HEAD
 #include "Client.h"
 
-=======
 #include "Message.h"
 #include "Socket.h"
->>>>>>> 0ebee56022809f679f5e75c1c975a8124bf9f713
 
 #define PORT 8888
 #define TRUE 1

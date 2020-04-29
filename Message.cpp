@@ -61,7 +61,6 @@ string ConfigurationMessage::getData() {
 }
 
 /**
-<<<<<<< HEAD
  * Duck Found Message
  */
 DuckFoundMessage::DuckFoundMessage() {
@@ -77,8 +76,9 @@ string DuckFoundMessage::constructMessage() {
 void DuckFoundMessage::setDuckId(int id) {
     duckId = id;
 }
-=======
- * All Ducks Found Message
+
+/*
+ *  All Ducks Found Message
  */
 
 AllDucksFoundMessage::AllDucksFoundMessage() {
