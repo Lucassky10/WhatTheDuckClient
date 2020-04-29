@@ -117,4 +117,3 @@ void CoordinatesMessage::setPosition(int x, int y, int z) {
 int* CoordinatesMessage::getPosition() {
     return position;
 }
->>>>>>> 0ebee56022809f679f5e75c1c975a8124bf9f713
