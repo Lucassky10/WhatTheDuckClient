@@ -97,15 +97,15 @@ class CoordinatesMessage : public Message
 {
 private:
     // Position (x, y, z)
-    int position[3];
+    float position[3];
 
 public:
     CoordinatesMessage();
     string constructMessage();
     // Set position
-    void setPosition(int, int, int);
+    void setPosition(float, float, float);
     // Get position
-    int* getPosition();
+    float* getPosition();
 };
 
 #endif

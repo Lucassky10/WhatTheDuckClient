@@ -110,13 +110,13 @@ string CoordinatesMessage::constructMessage() {
 }
 
 // Set position
-void CoordinatesMessage::setPosition(int x, int y, int z) {
+void CoordinatesMessage::setPosition(float x, float y, float z) {
     position[0] = x;
     position[1] = y;
     position[2] = z;
 }
 
 // Get position
-int* CoordinatesMessage::getPosition() {
+float* CoordinatesMessage::getPosition() {
     return position;
 }
